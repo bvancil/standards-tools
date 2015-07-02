@@ -31,7 +31,8 @@ def list_of_pe_urls(base_url='http://www.nextgenscience.org'):
     return pe_urls
     
 #relative_pe_urls = list(set(list_of_pe_urls())) # Uncomment to grab fresh copy of array
-relative_pe_urls = ['/kps2-motion-stability-forces-interactions', '/kps3-energy', '/kls1-molecules-organisms-structures-processes', '/kess2-earth-systems', '/kess3-earth-human-activity', '/1ps4-waves-applications-technologies-information-transfer', '/1ls1-molecules-organisms-structures-processes', '/1ls3-heredity-inheritance-variation-traits', '/1ess1-earth-place-universe', '/2ps1-matter-interactions', '/2ls2-ecosystems-interactions-energy-dynamics', '/2ls4-biological-evolution-unity-diversity', '/2ess1-earths-place-universe', '/2ess2-earth-systems', '/k-2ets1-engineering-design', '/3ps2-motion-stability-forces-interactions', '/3ls1-molecules-organisms-structures-processes', '/3ls2-ecosystems-interactions-energy-dynamics', '/3ls3-heredity-inheritance-variation-traits', '/3ls4-biological-evolution-unity-diversity', '/3ess2-earth-systems', '/3ess3-earth-human-activity', '/3-5ets1-engineering-design', '/4ps3-energy', '/4ps4-waves-applications-technologies-information-transfer', '/4ls1-molecules-organisms-structures-processes', '/4ess1-earth-place-universe', '/4ess2-earth-systems', '/4ess3-earth-human-activity', '/5ps1-matter-interactions', '/5ps2-motion-stability-forces-interactions', '/5ps3-energy', '/5ls1-molecules-organisms-structures-processes', '/5ls2-ecosystems-interactions-energy-dynamics', '/5ess1-earth-place-universe', '/5ess2-earth-systems', '/5ess3-earth-human-activity', '/msps1-matter-interactions', '/msps2-motion-stability-forces-interactions', '/msps3-energy', '/msps4-waves-applications-technologies-information-transfer', '/msls1-molecules-organisms-structures-processes', '/msls2-ecosystems-interactions-energy-dynamics', '/msls3-heredity-inheritance-variation-traits', '/msls4-biological-evolution-unity-diversity', '/msess1-earth-place-universe', '/msess2-earth-systems', '/msess3-earth-human-activity', '/msets1-engineering-design', '/hsps1-matter-interactions', '/hsps2-motion-stability-forces-interactions', '/hsps3-energy', '/hsps4-waves-applications-technologies-information-transfer', '/hsls1-molecules-organisms-structures-processes', '/hsls2-ecosystems-interactions-energy-dynamics', '/hsls3-heredity-inheritance-variation-traits', '/hsls4-biological-evolution-unity-diversity', '/hsess1-earth-place-universe', '/hsess2-earth-systems', '/hsess3-earth-human-activity', '/hsets1-engineering-design']
+#relative_pe_urls = ['/kps2-motion-stability-forces-interactions', '/kps3-energy', '/kls1-molecules-organisms-structures-processes', '/kess2-earth-systems', '/kess3-earth-human-activity', '/1ps4-waves-applications-technologies-information-transfer', '/1ls1-molecules-organisms-structures-processes', '/1ls3-heredity-inheritance-variation-traits', '/1ess1-earth-place-universe', '/2ps1-matter-interactions', '/2ls2-ecosystems-interactions-energy-dynamics', '/2ls4-biological-evolution-unity-diversity', '/2ess1-earths-place-universe', '/2ess2-earth-systems', '/k-2ets1-engineering-design', '/3ps2-motion-stability-forces-interactions', '/3ls1-molecules-organisms-structures-processes', '/3ls2-ecosystems-interactions-energy-dynamics', '/3ls3-heredity-inheritance-variation-traits', '/3ls4-biological-evolution-unity-diversity', '/3ess2-earth-systems', '/3ess3-earth-human-activity', '/3-5ets1-engineering-design', '/4ps3-energy', '/4ps4-waves-applications-technologies-information-transfer', '/4ls1-molecules-organisms-structures-processes', '/4ess1-earth-place-universe', '/4ess2-earth-systems', '/4ess3-earth-human-activity', '/5ps1-matter-interactions', '/5ps2-motion-stability-forces-interactions', '/5ps3-energy', '/5ls1-molecules-organisms-structures-processes', '/5ls2-ecosystems-interactions-energy-dynamics', '/5ess1-earth-place-universe', '/5ess2-earth-systems', '/5ess3-earth-human-activity', '/msps1-matter-interactions', '/msps2-motion-stability-forces-interactions', '/msps3-energy', '/msps4-waves-applications-technologies-information-transfer', '/msls1-molecules-organisms-structures-processes', '/msls2-ecosystems-interactions-energy-dynamics', '/msls3-heredity-inheritance-variation-traits', '/msls4-biological-evolution-unity-diversity', '/msess1-earth-place-universe', '/msess2-earth-systems', '/msess3-earth-human-activity', '/msets1-engineering-design', '/hsps1-matter-interactions', '/hsps2-motion-stability-forces-interactions', '/hsps3-energy', '/hsps4-waves-applications-technologies-information-transfer', '/hsls1-molecules-organisms-structures-processes', '/hsls2-ecosystems-interactions-energy-dynamics', '/hsls3-heredity-inheritance-variation-traits', '/hsls4-biological-evolution-unity-diversity', '/hsess1-earth-place-universe', '/hsess2-earth-systems', '/hsess3-earth-human-activity', '/hsets1-engineering-design']
+relative_pe_urls = ['/kps3-energy']
 #print(relative_pe_urls.__repr__()) # Used to generate the line above
 
 # Add base URLs to get full URLs
@@ -93,21 +94,22 @@ def pes_from_relative_url(relative_pe_url, base_url='http://www.nextgenscience.o
 pe_list = []
 for relative_pe_url in relative_pe_urls:
     rv = pes_from_relative_url(relative_pe_url)
-    #print(rv)
+    print(rv)
     pe_list.extend(rv)
-    
-with open(output_filename, 'w', newline='') as csv_file:
-    fieldnames = [
-        'Grade',
-        'DCI',
-        'PE Number',
-        'PE Code',
-        'PE Description',
-        'Clarification Statement',
-        'Assessment Boundary',
-        'Full PE Description',
-    ]
-    writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-    writer.writeheader()
-    writer.writerows(pe_list)
-    
+
+def output_csv(output_filename, pe_list):
+    with open(output_filename, 'w', newline='', encoding='utf-8') as csv_file:
+        fieldnames = [
+            'Grade',
+            'DCI',
+            'PE Number',
+            'PE Code',
+            'PE Description',
+            'Clarification Statement',
+            'Assessment Boundary',
+            'Full PE Description',
+            ]
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(pe_list)
+output_csv(output_filename, pe_list)
